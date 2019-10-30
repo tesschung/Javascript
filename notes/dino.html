@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Document</title>
+    <style>
+      .bg {
+        background-color: #f7f7f7;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        min-height: 100vh;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="bg">
+      <img
+        id="dino"
+        width="100px"
+        height="100px"
+        src="https://is4-ssl.mzstatic.com/image/thumb/Purple118/v4/88/e5/36/88e536d4-8a08-7c3b-ad29-c4e5dabc9f45/AppIcon-1x_U007emarketing-sRGB-85-220-0-6.png/246x0w.jpg"
+        alt="dino"
+      />
+    </div>
+
+    <script>
+      const bg = document.querySelector('div.bg')
+      const dino = document.querySelector('#dino')
+      console.log(bg, dino)
+    // 대상에 요소 삭제
+    // dino.remove() // 대상 직접 삭제
+    // bg.firstElementChild.remove() // 첫번째 자식 삭제
+    // bg.lastElementChild.remove() // 두번째 자식 삭제
+    // bg.removeChild(dino) // 특정 자식 삭제
+    
+
+    // 실습: body에 자식 element가 하나도 없을 때 까지 자식 element를 삭제하는 코드를 작성
+    // 힌트: while => 반복문 진행
+
+    // console.log(document.querySelector('body'))
+    // const body = document.querySelector('body')
+
+    // while (body.firstElementChild != null) {
+    //   body.firstElementChild.remove()
+    // }
+
+
+    // // 새로운 요소 생성
+    // dino.remove()
+    // const newDino = document.createElement('img')
+    // newDino.id = 'newDino'
+    // newDino.src = 'https://store-images.s-microsoft.com/image/apps.38351.14426311725358695.736eb785-1d29-478c-a909-1900849773e9.4247f5ee-1daa-4c97-96c2-23868f1fbc45?mode=scale&q=90&h=200&w=200&background=%230078D7'
+    // newDino.alt = 'Dino'
+
+    // // 대상에 요소 추가
+    // bg.appendChild(newDino) // 가장 마지막에 추가
+    // bg.insertBefore(newDino, bg.firstElementChild) // 특정요소 앞으로 추가
+    
+    
+    // EventListener
+    // dino를 클릭 시 console 창에 '아야!' 가 입력되는 이벤트를 등록
+
+    dino.addEventListener('click', (event) => {
+    dino.remove()
+    const newDino = document.createElement('img')
+    newDino.id = 'newDino'
+    newDino.src = 'https://store-images.s-microsoft.com/image/apps.38351.14426311725358695.736eb785-1d29-478c-a909-1900849773e9.4247f5ee-1daa-4c97-96c2-23868f1fbc45?mode=scale&q=90&h=200&w=200&background=%230078D7'
+    newDino.alt = 'Dino'
+    bg.insertBefore(newDino, bg.firstElementChild) // 특정요소 앞으로 추가
+    alert('변신')
+    console.log('아야')
+    console.log(event) // event를 통해 클릭시 발생하는 상황에 대한 data를 얻을 수 있다.
+    }) 
+
+    
+    // document 전체에 addEventListener을 넣음
+    // 문서에서 키보드 typing 시 KeyboardEvent를 Console에서 발견가능
+    // let msg = ''
+    // document.addEventListener('keydown', event => {
+    //   // 방향키가 입력되었을때만 event를 출력할 수 있도록 작성
+    //   // ArrowUp ArrowDown ArrowRight ArrowLeft
+    //   switch (event.key) {
+    //     case 'ArrowUp' : {
+    //     msg = '위'
+    //     x = Number(dino.style.marginBottom.slice(0,-2)) + 20
+    //     dino.style.marginBottom = `${x}px`
+    //     // dino.style.marginBottom = String(Number(dino.style.marginBottom.slice(0,-2)) + 20) + 'px'
+    //     // dino.style.marginBottom = '50px' // 반대쪽의 범위를 추가해야한다.
+    //     break
+    //     }
+    //     case 'ArrowDown' : {
+    //     msg = '아래'
+    //     dino.style.marginTop = String(Number(dino.style.marginTop.slice(0,-2)) + 20) + 'px'
+    //     break
+    //     }
+    //     case 'ArrowRight' : {
+    //     msg = '오른쪽'
+    //     dino.style.marginLeft = String(Number(dino.style.marginLeft.slice(0,-2)) + 20) + 'px'
+    //     break
+    //     }
+    //     case 'ArrowLeft' : {
+    //     msg = '왼쪽'
+    //     dino.style.marginRight = String(Number(dino.style.marginRight.slice(0,-2)) + 20) + 'px'
+    //     break
+    //     }
+    //   }
+    //   console.log(event)
+    //   console.log(msg)
+    // })
+    
+
+
+    // document.addEventListener('keydown', event => {
+    //     // 방향키를 눌렀을 때만 event를 출력할 수 있도록 조건문 작성하기
+    //     const key = event.key
+    //     let x = Number(dino.style.marginLeft.slice(0,-2))
+    //     let y = Number(dino.style.marginTop.slice(0,-2))
+    //     switch (key) {
+    //       case 'ArrowUp': {
+    //         y -= 20
+    //         dino.style.marginTop = `${y}px`
+    //         break
+    //       }
+    //       case 'ArrowDown': {
+    //         y += 20
+    //         console.log('아래')
+    //         dino.style.marginTop = `${y}px`
+    //         break
+    //       }
+    //       case 'ArrowLeft': {
+    //         x -= 20
+    //         dino.style.marginLeft = `${x}px`
+    //         break
+    //       }
+    //       case 'ArrowRight': {
+    //         x += 20
+    //         dino.style.marginLeft = `${x}px`
+    //         break
+    //       }
+    //       default: {
+    //         break
+    //       }
+    //     }
+    //   })
+    let x = 0
+    let y = 0
+
+    document.addEventListener('keydown', event => {
+        if (event.key === 'ArrowUp') {
+        y -= 20
+        dino.style.marginTop = `${y}px`
+      } else if (event.key === 'ArrowDown') {
+        y += 20
+        dino.style.marginTop = `${y}px`
+      } else if (event.key === 'ArrowLeft') {
+        x -= 20
+        dino.style.marginLeft = `${x}px`
+      } else if (event.key === 'ArrowRight') {
+        x += 20
+        dino.style.marginLeft = `${x}px`
+      }
+    })
+
+    dino.style.position = 'absolute'
+    // window 사이즈 조절
+    // window.innerWidth = 0
+    // window.innerHeight = 0
+    dino.addEventListener('mouseover', () => {
+      console.log('마우스올라감')
+      // 0부터 1사이의 값 Math.random
+      const newWidth = window.innerWidth * Math.random()
+      const newHeight = window.innerHeight * Math.random()
+      dino.style.left = newWidth + 'px'
+      dino.style.top = newHeight + 'px'
+    })
+
+    </script>
+  </body>
+</html>

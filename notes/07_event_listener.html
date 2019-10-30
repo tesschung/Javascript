@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+<body>
+  <h1 id='header'></h1>
+  <button id='my-button'> Click me! </button>
+  <script src='07_event_listener.js'>
+  const button = document.querySelector('#my-button')
+  // onclick 이라는 Event가 발생할때마다 함수를 실행
+  // callBack method
+  button.addEventListener('click', () => {
+    console.log('사용자가 버튼을 눌렀을때만 실행되는 함수')
+  }) 
+  </script>
+
+
+</body>
+</html>

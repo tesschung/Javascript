@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>My shopping list</title>
+</head>
+<body>
+  
+<h1>My shopping list</h1>
+<div>
+Enter a new item:
+<input type="text">
+<button>Add item</button>
+</div>
+
+<ul>
+</ul>
+
+
+<script>
+const h1 = document.querySelector('h1')
+// h1.innerText
+// h1.innerText = '바꾸기'
+// <h1> innerText </h1>
+
+const input = document.querySelector('input')
+const ul = document.querySelector('ul')
+const button = document.querySelector('button')
+input.value // 들어온 값 출력 가능
+
+
+button.addEventListener('click', (event) => {
+    const li = document.createElement('li')
+    li.innerText = input.value
+
+    const deleteButton = document.createElement('Button')
+    deleteButton.innerText = '삭제'
+    li.appendChild(deleteButton, li.deleteButton)
+    ul.insertBefore(li, ul.firstElementChild)
+
+    deleteButton.addEventListener('click', (event) => {
+      li.remove()
+    })
+})
+
+
+
+
+
+</script>
+</body>
+</html>
