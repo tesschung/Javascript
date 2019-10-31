@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <script src='https://unpkg.com/axios/dist/axios.min.js'></script>
+  <title>Use Axios</title>
+</head>
+<body>
+  <script>
+
+    // 요청을 보낼 url 정의
+    const url = 'https://jsonplaceholder.typicode.com/posts/1'
+
+    // Axios를 이용하여 url로 GET 요청을 보낸다.
+    axios.get(url)
+    // 그리고, 응답이 도착한 다음 실행할 함수를 정의한다. (응답의 내용은 함수의 인자로 받는다)
+         .then(function(response){
+           console.log(response)
+         })    
+  </script>
+</body>
+</html>

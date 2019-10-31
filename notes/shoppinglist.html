@@ -28,25 +28,46 @@ const h1 = document.querySelector('h1')
 const input = document.querySelector('input')
 const ul = document.querySelector('ul')
 const button = document.querySelector('button')
-input.value // 들어온 값 출력 가능
-
+input.value // button에서 들어온 값 출력 가능
 
 button.addEventListener('click', (event) => {
+
+
+    // 1-1. input의 value값을 가져오기 위한 element를 생성한다.
     const li = document.createElement('li')
+
+    // 예외처리
+    if ( input.value === '' ) {
+      alert('입력해주세요.')
+      return
+    }
+    // 2-1. 삭제버튼을 만든다.
+    const deleteButton = document.createElement('Button')
+    
+    // 1-2. button의 input의 value값을 li.innerText에 할당한다.
     li.innerText = input.value
 
-    const deleteButton = document.createElement('Button')
+    // 2-2. 삭제버튼에 innerText를 추가한다.
     deleteButton.innerText = '삭제'
-    li.appendChild(deleteButton, li.deleteButton)
+
+    // 1-3. list에 자식으로 추가한다.
     ul.insertBefore(li, ul.firstElementChild)
 
+    // 2-3. 삭제버튼을 해당 자식으로 추가한다.
+    li.appendChild(deleteButton, li.deleteButton)
+    
+    // 2-3. 삭제버튼
     deleteButton.addEventListener('click', (event) => {
-      li.remove()
+      fin = confirm('정말로 삭제하시겠습니까?') // 확인시 true 취소시 false
+      if (fin === true) {
+        li.remove()
+      }
     })
 })
 
 
-
+const body = document.querySelectorAll('body')
+console.log(body)
 
 
 </script>
