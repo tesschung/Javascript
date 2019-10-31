@@ -1,0 +1,12 @@
+{% extends 'base.html' %}
+
+{% block title %}Accounts::회원가입{% endblock title %}
+
+{% block container %}
+<h2>회원가입</h2>
+<form method="post">
+  {% csrf_token %}
+  {{ form.as_p }}
+  <button type="submit">회원가입</button>
+</form>
+{% endblock container %}

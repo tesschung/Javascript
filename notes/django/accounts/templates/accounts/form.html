@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+
+{% block title %}Accounts{% endblock title %}
+
+{% block container %}
+
+{% if request.resolver_match.url_name == 'signup' %}
+<h2>회원가입</h2>
+{% elif request.resolver_match.url_name == 'login' %}
+<h2>로그인</h2>
+{% elif request.resolver_match.url_name == 'update' %}
+<h2>내 정보 수정</h2>
+{% else %}
+<h2>비밀번호 변경</h2>
+{% endif %}
+
+<form method="post">
+  {% csrf_token %}
+  {{ form.as_p }}
+  <button type="submit">Submit</button>
+</form>
+{% endblock container %}

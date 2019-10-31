@@ -1,0 +1,94 @@
+{% extends 'base.html' %}
+
+{% block title %}Article::Detail{% endblock title %}
+
+{% block container %}
+<h2>{{ article.title }}</h2>
+<p>{{ article.created_at }}</p>
+<p>작성자: {{ article.user }}</p>
+{% comment %} Aixos 사용하여 동적으로 변경 {% endcomment %}
+{% comment %} <a href="{% url 'articles:like' article.pk %}">
+  {% if user in article.liked_users.all %}
+  <i class="fas fa-heart fa-lg" style="color: red"></i>
+  {% else %}
+  <i class="far fa-heart fa-lg" style="color: red"></i>
+  {% endif %}
+</a> {% endcomment %}
+
+{% comment %} 아래와 같이 class {% endcomment %}
+{% comment %} data-id => 어느 포스트에 좋아요를 누를건지 적어서 보낸다 {% endcomment %}
+<i
+  class="{% if user in article.liked_users.all %}fas{% else %}far{% endif %} fa-heart fa-lg" 
+  id="like-btn" 
+  data-id="{{ article.pk }}" 
+  style="color:red"
+>
+</i>
+
+
+<p><span id="like-count">{{ article.liked_users.all | length }}</span>명이 이 글을 좋아합니다.</p>
+<hr>
+<p>{{ article.content }}</p>
+<hr>
+{% if article.user == request.user %}
+<a href="{% url 'articles:update' article.pk %}">[수정하기]</a>
+<form action="{% url 'articles:delete' article.pk %}" method="post">
+  {% csrf_token %}
+  <button type="submit">삭제하기</button>
+</form>
+<hr>
+{% endif %}
+<h3>Comments</h3>
+{% if user.is_authenticated %}
+<form action="{% url 'articles:comments_create' article.pk %}" method="post">
+  {% csrf_token %}
+  {{ comment_form.as_table }}
+  <button type="submit">작성하기</button>
+</form>
+{% endif %}
+<hr>
+<ul>
+{% for comment in comments %}
+  <li>
+    {% if request.user == comment.user %}
+    <form action="{% url 'articles:comments_delete' article.pk comment.pk %}" method="post">
+      {% csrf_token %}
+      <span>{{ comment.content }} - {{ comment.created_at }} / {{ comment.user }}</span>
+      <button class="btn btn-danger" type="submit">삭제하기</button>
+    </form>
+    {% else %}
+    <span>{{ comment.content }} - {{ comment.created_at }} / {{ comment.user }}</span>
+    {% endif %}
+  </li>
+{% endfor %}
+</ul>
+
+{% include 'articles/_follow.html' %}
+
+<script>
+const likeBtn = document.querySelector('#like-btn')
+likeBtn.addEventListener('click', function(event) {
+  // Button의 data-id 속성을 아래 코드로 가지고 온다.
+  const articleId = event.target.dataset.id
+  axios.get(`/articles/${articleId}/like/`)
+  .then(function(response){
+    // console.log(response)
+    // 사용자의 좋아요 상태에 따라 버튼 클래스 변경
+    if (response.data.liked) {
+      // 응답받았을때 사용자가 article을 좋아요인 상태라면,
+      // classList => likeBtn의 class 목록
+      likeBtn.classList.remove('far')
+      likeBtn.classList.add('fas')
+    } else {
+      likeBtn.classList.remove('fas')
+      likeBtn.classList.add('far')
+    }
+    // 아티클을 좋아하는 사람들 수를 응답받아 적용
+    const likeCount = document.querySelector('#like-count')
+    likeCount.innerText = response.data.count
+  })
+})
+</script>
+
+
+{% endblock container %}

@@ -1,0 +1,12 @@
+{% extends 'base.html' %}
+
+{% block title %}Accounts::로그인{% endblock title %}
+
+{% block container %}
+<h2>로그인</h2>
+<form method="post">
+  {% csrf_token %}
+  {{ form.as_p }}
+  <button type="submit">로그인</button>
+</form>
+{% endblock container %}

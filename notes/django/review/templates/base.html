@@ -1,0 +1,48 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  {% comment %} bootstrap {% endcomment %}
+  <link rel="stylesheet" href="{% static 'bootstrap/css/bootstrap-reboot.min.css' %}">
+  <link rel="stylesheet" href="{% static 'bootstrap/css/bootstrap-grid.min.css' %}">
+  <link rel="stylesheet" href="{% static 'bootstrap/css/bootstrap.min.css' %}">
+  {% comment %} fontawesome {% endcomment %}
+  <script src="https://kit.fontawesome.com/3b26fded11.js" crossorigin="anonymous"></script>
+  {% comment %} Axios {% endcomment %}
+  <script src="https://npmcdn.com/axios/dist/axios.min.js"></script>
+
+  
+  <title>{% block title %}{% endblock title %}</title>
+</head>
+<body>
+  <header class="container">
+    <h1>저희 페이지 오신걸 환영합니다.</h1>
+    {% if user.is_authenticated %}
+    <p>
+      <span>Hello, {{ user.username }}</span>
+      <a href="{% url 'accounts:logout' %}">로그아웃</a>
+      <a href="{% url 'accounts:update' %}">회원정보 수정</a>
+      <form action="{% url 'accounts:delete' %}" method="post">
+        {% csrf_token %}
+        <button type="submit">회원탈퇴</button>
+      </form>
+    </p>
+    {% else %}
+    <p>
+      <a href="{% url 'accounts:login' %}">로그인</a>
+      <a href="{% url 'accounts:signup' %}">회원가입</a>
+    </p>
+    {% endif %}
+    <a href="{% url 'articles:index' %}">[홈으로]</a>
+    <hr>
+  </header>
+  <div class="container">
+  {% block container %}{% endblock container %}
+  </div>
+  <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+  <script src="{% static 'bootstrap/js/bootstrap.bundle.min.js' %}"></script>
+</body>
+</html>

@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+
+
+{% block title %}Article::Index{% endblock title %}
+
+{% block container %}
+<h2>Article List</h2>
+{% if user.is_authenticated %}
+<a href="{% url 'articles:create' %}">[생성하기]</a>
+{% else %}
+<a href="{% url 'accounts:signup' %}">게시글을 작성하기 위해 지금 저희의 회원이 되어보세요!</a>
+{% endif %}
+
+
+<hr>
+{% for article in articles %}
+<div>
+  <h3>{{ article.pk }}. {{ article.title }}</h3>
+  <p>작성자: {{ article.user }}</p>
+  <a href="{% url 'articles:detail' article.pk %}">[상세보기]</a>
+</div>
+<br>
+{% endfor %}
+
+{% endblock container %}

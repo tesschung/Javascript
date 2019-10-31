@@ -212,7 +212,7 @@ console에서 아래와 같이 bg라는 변수에 해당 query를 담을 수 있
 </html>
 ```
 
-![dino](dino-1572402822307.png)
+![dino](dino.png)
 
 
 
@@ -303,11 +303,7 @@ style로 바로 접근하여 element를 바꿀 수 있다.
 
 
 
-![캡처](캡처-1572410174444.JPG)
-
-위와 같이 동적으로 홈페이지 수정 가능
-
-
+![캡처](캡처.JPG)
 
 
 
@@ -317,7 +313,9 @@ style로 바로 접근하여 element를 바꿀 수 있다.
 
 ## My shopping list
 
-![shopping-list](shopping-list.png)
+![shopping-list1](shopping-list1.png)
+
+
 
 ```js
 const h1 = document.querySelector('h1')
@@ -345,4 +343,251 @@ button.addEventListener('click', (event) => {
     })
 })
 ```
+
+
+
+
+
+
+
+## [Node.js]( https://nodejs.org/ko/ )
+
+
+
+#### 설치
+
+ Node.js를 다운 받고 bash에서 아래와 같이 확인되면 설치 완료
+
+```bash
+student@M702 MINGW64 ~/development/Javascript (master)
+$ node -v
+v12.13.0
+
+student@M702 MINGW64 ~/development/Javascript (master)
+$ npm -v
+6.12.0
+
+```
+
+
+
+#### Node.js 란?
+
+```bash
+student@M702 MINGW64 ~/development/Javascript/notes (master)
+$ node test.js
+123123
+```
+
+위와같이 Javascript가 브라우저 환경에서 벗어나서 bash/terminal에서 python 처럼 확인 가능
+
+때문에 브라우저에 종속되어있는 반쪽짜리 언어가 아니게 되었다.
+
+서버도 만들고, html도 만들고,, 풀스택 가능
+
+
+
+[npm](https://www.npmjs.com/ ) :  Node.js에서 package를 관리해주는 manager
+
+
+
+non blocking 하다 : 비동기적으로 처리하다
+
+call back 함수를 많이 쓰게될 것
+
+
+
+####  **메모리 힙(Memory Heap)**  이란?
+
+객체는 힙, 대부분 구조화되지 않은 메모리 영역에 할당된다. 변수와 객체에 대한 모든 메모리 할당은 여기서 발생한다. 
+
+
+
+#### 호출스택(Call Stack) 이란? [관련문서](https://new93helloworld.tistory.com/358)
+
+코드가 실행될 때 호출 스택이 쌓인다. 
+
+우리가 어디에 있는지를 기본적으로 기록하는 데이터 구조
+
+> 동작 방식
+
+1. 함수를 실행하면 해당 함수의 기록을 스택 맨 위에 추가(Push) 합니다. 
+2. 우리가 함수를 결과 값을 반환하면 스택에 쌓여있던 함수는 제거(Pop) 됩니다.  
+
+ https://joshua1988.github.io/tech/ 
+
+| 호출순   | 함수이름 | 실행순   |
+| -------- | -------- | -------- |
+| 함수1    | 함수1    | 함수5    |
+| 함수2    | 함수2    | 3초함수4 |
+| 함수3    | 함수3    | 함수3    |
+| 3초함수4 | 3초함수4 | 함수2    |
+| 함수5    | 함수5    | 함수1    |
+|          |          | 3초함수4 |
+
+
+
+
+
+#### XMLHttpRequest(XHR)
+
+Javascript가 가지는 객체
+
+전체 페이지의 새로고침없이도 URL 로부터 데이터를 받아올 수 있다. 
+
+
+
+ https://jsonplaceholder.typicode.com/posts/1 
+
+```js
+> const XHR = new XMLHttpRequest()
+> undefined
+> const url = 'https://jsonplaceholder.typicode.com/posts/1'
+> undefined
+> XHR.open('GET', url)
+> undefined
+
+> XHR.addEventListener('load', function(event) {
+    console.log(event)
+})
+> undefined
+> XHR.send()
+> undefined
+> VM623:2 ProgressEvent {isTrusted: true, lengthComputable: false, loaded: 292, total: 0, type: "load", …}
+
+-- 응답받은 json 타입의 객체
+bubbles: false
+cancelBubble: false
+cancelable: false
+composed: false
+currentTarget: XMLHttpRequest {onreadystatechange: null, readyState: 4, timeout: 0, withCredentials: false, upload: XMLHttpRequestUpload, …}
+defaultPrevented: false
+eventPhase: 0
+isTrusted: true
+lengthComputable: false
+loaded: 292
+path: []
+returnValue: true
+srcElement: XMLHttpRequest {onreadystatechange: null, readyState: 4, timeout: 0, withCredentials: false, upload: XMLHttpRequestUpload, …}
+target: XMLHttpRequest {onreadystatechange: null, readyState: 4, timeout: 0, withCredentials: false, upload: XMLHttpRequestUpload, …}
+timeStamp: 298999.11499998416
+total: 0
+type: "load"
+__proto__: ProgressEvent
+```
+
+
+
+**axios** 설치 : Javascript로 요청을 보내는 library
+
+```bash
+$ npm install axios
+```
+
+
+
+package.json 생성 (프로젝트 매니저)
+
+```bash
+npm init
+-- 모두 enter
+```
+
+
+
+.gitignore
+
+```bash
+vi .gitignore
+
+node_modules/ 등록
+
+
+node_modules 삭제 후 npm install 하면 모두 깔림
+```
+
+
+
+#### web API 사용을 도와주는 axios 사용
+
+```js
+const axios = require('axios')
+
+const url = 'https://jsonplaceholder.typicode.com/posts/1'
+
+
+// 아래와 같이 call back 함수 
+axios.get(url)
+.then(function(response) {
+  console.log(response.data)
+  // console.log(response)
+})
+```
+
+```bash
+student@M702 MINGW64 ~/development/Javascript/notes (master)
+$ node 02_axios_node.js
+{
+  userId: 1,
+  id: 1,
+  title: 'sunt aut facere repellat provident occaecati excepturi optio reprehenderit',
+  body: 'quia et suscipit\n' +
+    'suscipit recusandae consequuntur expedita et cum\n' +
+    'reprehenderit molestiae ut ut quas totam\n' +
+    'nostrum rerum est autem sunt rem eveniet architecto'
+}
+```
+
+
+
+#### 페이지 전환 없이 요청을 보내서 응답받은 데이터로 페이지 조작
+
+```js
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+ <meta charset="UTF-8">
+ <meta name="viewport" content="width=device-width, initial-scale=1.0">
+ <meta http-equiv="X-UA-Compatible" content="ie=edge">
+ <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+ <title>개랑 고양이</title>
+</head>
+<body>
+ <h1>댕댕이</h1>
+ <button>Add Dog</button>
+ <div class="animals"></div>
+ 
+ <script>
+   const API_URL = 'https://dog.ceo/api/breeds/image/random'
+  
+   const button = document.querySelector('button')
+
+  button.addEventListener('click', (event) => {
+  // getDogImage함수를 실행 시킬때마다 새롭게 push 해줄것
+   const getDogImage = function() {
+   // Axios 를 통해 댕댕이 사진을 달라는 요청을 보낸다
+   axios.get(API_URL)
+     // 그리고 요청이 도착하면, 함수를 실행한다
+     .then(function(response) {
+       // 응답받은 데이터에서 댕댕이 이미지 url 을 꺼낸다
+       const imageUrl = response.data.message
+       // 댕댕이 이미지를 화면에 표현하기 위한 이미지 태그를 생성한다
+       const dogImage = document.createElement('img')
+       dogImage.src = imageUrl
+       dogImage.alt = 'dog'
+       // div.animals 안에 이미지 태그를 push 한다
+       const animalsList = document.querySelector('div.animals')
+       animalsList.appendChild(dogImage)
+     })
+    }
+    console.log(getDogImage())
+  })
+ </script>
+</body>
+</html>
+```
+
+
+
+#### django: Axios 적용
 
