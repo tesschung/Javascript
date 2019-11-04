@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <!-- Vue 도움되는 콘솔 경고를 포함한 개발 버전 -->
+  <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+  <title>Todo App</title>
+<style>
+.completed {
+  text-decoration: line-through;
+  opacity: 0.6;
+}
+</style>
+
+
+</head>
+<body>
+  <div id="app">
+    <h1 v-bind:style="{ color: activeColor, fontSize: fontSize + 'px' }"> Todo</h1>
+
+    <ul>
+      <!-- true면 보여주도록 설정 -->
+      <!-- <li v-for="todo in todos" c-if="todo.completed"> -->
+
+
+      <!-- false면 보여주도록 설정 -->
+      <li v-for="todo in todos" v-bind:class="{ completed: todo.completed }">
+        {{ todo.content }}
+        <input type="checkbox" v-model="todo.completed">
+        <!-- {{ todo.completed }} -->
+      </li>
+      <!-- <li v-else @click="toggleTodo(todo)">완료</li> -->
+    </ul>
+
+    <!-- 1:1로 binding한다 -->
+    <input v-model="newTodo" type="text" v-on:keydown.enter="addTodo">
+    <!-- @click 과 v-on:click은 똑같이 동작 -->
+
+    <footer>
+        <button v-on:click="clearCompleted">
+          clearCompleted
+        </button>
+    </footer>
+  </div>
+
+  <script>
+    const app = new Vue({
+      el: '#app',
+
+
+      data: {
+        todos: [
+          {
+            content: '저녁 메뉴 고민하기',
+            completed: true,
+          },
+          {
+            content: '사다리 타기',
+            completed: false,
+          },
+          {
+            content: '약속의 2시 낮잠 자기',
+            completed: false,
+          },
+          {
+            content: '야자하기',
+            completed: false,
+          },
+        ],
+        newTodo: '',
+        activeColor: 'red',
+        fontSize: 30
+      },
+      methods: {
+        // 클릭되는 대상이 어떤 것인지 알기위해서 아래와 같이 todo라는 인자를 추가
+        toggleTodo: function(todo) {
+          // 현재값에 누르면 반대값이 되도록 앞에 ! 를 추가
+          todo.completed = !todo.completed
+        },
+        addTodo: function() {
+          this.todos.push({
+            content: this.newTodo,
+            completed: false,
+          })
+          this.newTodo = ''
+        },
+        clearCompleted: function() {
+          // Completed가 true인 모든 todo 를 리스트에서 삭제한다,
+          // Completed가 false인 todo만 남는다.
+          this.todos = this.todos.filter(todo => {
+            return todo.completed === false
+          })
+        },
+      },
+    })
+  </script>
+</body>
+</html>

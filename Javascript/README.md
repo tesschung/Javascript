@@ -212,9 +212,9 @@ console에서 아래와 같이 bg라는 변수에 해당 query를 담을 수 있
 </html>
 ```
 
-![dino](dino.png)
 
 
+![dino](dino-1572831383815.png)
 
 변수의 property를 이런식으로 가져올 수 있다.
 
@@ -295,27 +295,19 @@ style로 바로 접근하여 element를 바꿀 수 있다.
 
 
 
-
-
-
-
 ### 생성 및 대상에 요소 추가
 
 
 
-![캡처](캡처.JPG)
-
-
-
-
+![캡처1](캡처1.JPG)
 
 
 
 ## My shopping list
 
-![shopping-list1](shopping-list1.png)
 
 
+![shopping-list1](shopping-list1-1572831395011.png)
 
 ```js
 const h1 = document.querySelector('h1')
@@ -590,4 +582,34 @@ $ node 02_axios_node.js
 
 
 #### django: Axios 적용
+
+```js
+const axios = require('axios')
+
+axios.get('http://jsonplacjsisjdmnaeholder.typicode.com/posts')
+  .then(response => {
+    console.log(response)
+  })
+  .catch(err => {
+    console.log(err)
+  })
+
+
+
+const getCatImage = function () {
+      axios.get('https://api.thecatapi.com/v1/images/search')
+        .then(response => {
+          const imgUrl = response.data[0].url
+          const imgTag = document.createElement('img')
+          imgTag.src = imgUrl
+          document.querySelector('.animals').append(imgTag)
+        })
+        .catch(error => console.log(error))
+    }
+
+```
+
+
+
+
 

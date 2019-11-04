@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <!-- Vue 도움되는 콘솔 경고를 포함한 개발 버전 -->
+  <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+  <title>Document</title>
+</head>
+<body>
+  <div>
+    {{ message }}
+    <div id="app">
+        {{ message }} - {{ count }}
+        <!-- 버튼이 클릭될때 plus라는 함수를 실행 -->
+        <button v-on:click="plus">plus</button>
+        <!-- 버튼이 클릭될때 minus라는 함수를 실행 -->
+        <button v-on:click="minus">minus</button>
+      </div>
+  </div>
+
+
+  <script>
+  // 모든 데이터가 관리되는 곳
+  // Vue 코드가 작성되는 곳
+  // Vue안에 object 작성 
+
+  // class에서 새로운 instance를 만들때, new라는 키워드 사용
+  const app = new Vue({
+    // Vue에 키:값 으로 생성
+    // el이라는 곳에 #app을 binding
+    el: '#app', // id가 app인 것만을 가져온다
+    // data는 object start이므로 {}안에 키:값 으로 property를 정의해줘야 한다.
+    data: {
+      message: 'Hello, Vue!',
+      count: 0
+    },
+    // object start
+    methods: {
+      // function 키워드를 통한 함수 정의
+      // arrow function은 불가능
+      plus: function() {
+        // function 키워드로 함수 정의를 해야 this가 Vue instance를 가르킨다.
+        this.count++
+      },
+      minus: function() {
+        this.count--
+      },
+    },
+    /*
+      this.message
+    */
+
+  })
+
+
+  </script>
+
+
+</body>
+</html>
