@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+<body>
+  <button id="function">function</button>
+  <button id="arrow">arrow function</button>
+  
+  <script>
+    const functionButton = document.querySelector('#function')
+    const arrowButton = document.querySelector('#arrow')
+
+    // 객체 자체를 가지고 온다.
+    functionButton.addEventListener('click', function(event) {
+      console.log('====function====')
+      console.log(this)
+    })
+
+    // 객체가 들고있는 property들을 가지고 온다.
+    arrowButton.addEventListener('click', event => {
+      console.log('====arrow function====')
+      console.log(this)
+    })
+
+    // 1. function 표현식 : 함수 호출(전역), 함수 내 함수 -> window
+    const greeting = function() {
+      console.log(this)
+    }
+    greeting() // window
+    // 2. 메서드 호출 -> 해당 객체
+    const you = {
+      name: 'kim',
+      greeting
+    }
+    you.greeting() // {name: "kim", greeting: ƒ} : this 는 해당 오브젝트(객체)
+    // 3. arrow : 함수 내 함수 -> 해당 객체
+    // arrow 에서의 this 는 호출 위치와 상관없이 상위 스코프 this 를 가리킨다.
+    // 따라서, 메소드 선언을 arrow 함수로 하게 되면, 해당 오브젝트의 상위 스코프인
+    // 전역객체 window 가 바인딩 된다.
+    const arrowGreeting = () => console.log(this)
+    const me = {
+      name:'tak',
+      arrowGreeting
+    }
+    arrowGreeting() // window
+    me.arrowGreeting() // window
+    // 그렇다면 arrow 를 언제 활용?? - 함수 내의 함수 !
+    const num = {
+      numbers: [1],
+      print: function() {
+        console.log(this) // num 객체
+        console.log(this.numbers) // [1]
+        this.numbers.forEach(function(num) {
+          console.log(num) // 1
+          console.log(this) // window
+        })
+      }
+    }
+    num.print()
+    const num2 = {
+      numbers: [1],
+      print: function() {
+        console.log(this) // num2 객체
+        console.log(this.numbers) // [1]
+        this.numbers.forEach(num => {
+          console.log(num) // 1
+          console.log(this) // num2 객체 (이것 때문에 arrow 사용!)
+        })
+      }
+    }
+    num2.print()
+    // 이벤트 리스너로 돌아와서
+    // 이벤트 리스터에서의 콜백 함수는 특별하게 function 키워드의 경우에는 
+    // 이벤트 리스너를 호출한 대상(event.target)을 뜻한다.
+    // 따라서, 호출한 대상을 원하면 this 를 사용할 수 있다.
+    // 다만 arrow function 에 경우 상위 스코프를 지칭하게 때문에 window 객체가 출력된다.
+  </script>
+</body>
+</html>
