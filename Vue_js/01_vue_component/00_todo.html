@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+
+<body>
+  <div id="app">
+    <input type="text" v-model="newTodo">
+    <!-- TODO: 누를 때 마다 addTodo 함수를 실행한다. -->
+    <button v-on:click="addTodo">+</button>
+    <!-- TODO: todos 를 반복하며 todo 를 li 태그로 표현한다. -->
+    <!-- v-bind:key 여러개의 tag들을 1:1 mapping을 시키기 위해서 사용 -->
+    <li v-for="todo in todos" v-bind:key="todo.id">
+      <!-- interpolation으로 아래와 같이 작성 -->
+      <span>{{ todo.content }}</span>
+      <!-- TODO: 누를 때 마다 removeTodo 함수를 실행한다. -->
+      <button v-on:click="removeTodo(todo.id)">x</button>
+    </li>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+  <script>
+    const app = new Vue({
+      //  위 값을 알고있어야 한다.
+      el: '#app',
+      data: {
+        todos: [],
+        // TODO: input 과 양방향 바인딩 한다.
+        newTodo: '',
+      },
+      methods: {
+        // TODO: newTodo 에 저장되어 있는 값을 꺼내서 todos 에 저장할 object 를 만든 후 push 한다.
+        // (object 는 content 와 id 속성을 가지고 있다.)
+        addTodo: function () {
+          if (this.newTodo.length != 0) {
+            this.todos.push({
+              id: Date.now(),
+              content: this.newTodo,
+              completed: false,
+            })
+            this.newTodo = ''
+          }
+        },
+        // TODO: todo 의 id 값을 인자로 받아 todos 에서부터 해당 id 값을 가진 todo 를 삭제한다.
+        removeTodo: function (todoId) {
+          this.todos = this.todos.filter( todo => {
+            // 완료한 todo
+            // 안료된 todo를 제외한 나머지 todo만 filter 를 통해서
+            // 새로운 배열로 return
+            return todo.id !== todoId
+          })
+        }
+      }
+    })
+  </script>
+</body>
+
+</html>

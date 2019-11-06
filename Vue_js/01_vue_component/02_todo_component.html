@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <style>
+    .todo-list {
+      display: inline-block;
+      width: 33%;
+    }
+  </style>
+</head>
+<body>
+  <div id="app">
+    <h1>My Todo App</h1>
+    <todo-list category="취업특강"></todo-list>
+    <todo-list category="SSAFY"></todo-list>
+    <todo-list category="기타"></todo-list>
+  </div>
+  <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+  <script>
+    // 컴포넌트 등록
+    Vue.component('todo-list', {
+      template: `
+      <div class="todo-list">
+        <h2>{{ category }}</h2>
+        <input type="text" v-model="newTodo">
+        <button v-on:click="addTodo">+</button>
+        <li v-for="todo in todos" v-bind:key="todo.id">
+        <span>{{ todo.content }}</span>
+        <button v-on:click="removeTodo(todo.id)">x</button>
+        </li>
+      </div>`,
+      props: {
+        category: {
+          type: String,
+          required: true,
+          validator: function (value) {
+            if (value.length < 5) {
+              return true
+            } else {
+              return false
+            }
+          },
+        }
+      },
+      // 컴포넌트에서 data 는 함수여야 한다.
+      // 이제 모든 todos 와 newTodo 는 각각 고유한 내부 상태가 있다.
+      data: function() {
+        return {
+          todos: [],
+          newTodo: '',
+        }
+      },
+      methods: {
+        addTodo: function () {
+          if (this.newTodo.length != 0) {
+            this.todos.push({
+              id: Date.now(),
+              content: this.newTodo,
+              completed: false,
+            })
+            this.newTodo = ''
+          }
+        },
+        removeTodo: function (todoId) {
+          this.todos = this.todos.filter( todo => {
+            return todo.id !== todoId
+          })
+        },
+      },
+    })
+
+    const app = new Vue({
+      el: '#app',
+    })
+  </script>
+</body>
+</html>
