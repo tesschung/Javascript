@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+<body>
+  <div id="examp">
+<todo-list></todo-list>
+  </div>
+
+
+  <script>
+  
+  Vue.component('todo-list', {
+    template: '<div>사용자 정의 컴포넌트 입니다.</div>'
+  })
+
+  const app = new Vue({
+    el: '#examp'
+  })
+
+  </script>
+
+
+</body>
+</html>

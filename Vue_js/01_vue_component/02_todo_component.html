@@ -13,8 +13,10 @@
   </style>
 </head>
 <body>
+  <!-- root 가장 상위 component -->
   <div id="app">
     <h1>My Todo App</h1>
+    <!-- 하위 component -->
     <todo-list category="취업특강"></todo-list>
     <todo-list category="SSAFY"></todo-list>
     <todo-list category="기타"></todo-list>
@@ -22,6 +24,7 @@
   <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
   <script>
     // 컴포넌트 등록
+    // Vue는 모두 소문자 및 하이픈이 포함된 상태여야 한다.
     Vue.component('todo-list', {
       template: `
       <div class="todo-list">
@@ -33,6 +36,34 @@
         <button v-on:click="removeTodo(todo.id)">x</button>
         </li>
       </div>`,
+      // Vue props option을 사용해서 상위 컴포넌트에서 하위 컴포넌트로 props라는 값을 넘겨준다.
+      // type을 적어줘야 한다. => string type으로 넘어오는 category임을 명시한다.
+      // 'propA': Number, 숫자 값만 허용 (null 은 어떤 타입이든 허용)
+      // 'propB': [String, Number], String과 Number 타입만 허용
+      /*
+      'propC': {
+        type: String,
+        required: true
+      }, 문자열이며 반드시 필요합니다.
+
+      'propD': {
+        type: Number,
+        default: 100,
+      }, 숫자이며 기본 값을 가집니다.
+
+      'propE': {
+        type: Object,
+        default: function() {
+          return { 'message': 'hello' }
+        },
+      }, 객체/배열값의 기본 값은 함수 반환형으로 작성합니다.
+
+      'propF': {
+        validator: function(value) {
+          return value > 10
+        },
+      }, 넘어오는 value 값은 10 보다는 커야한다.
+      */ 
       props: {
         category: {
           type: String,
