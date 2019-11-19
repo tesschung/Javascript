@@ -1,0 +1,4 @@
+{
+    "git.ignoreLegacyWarning": true,
+    "python.pythonPath": "todo-back\\venv\\Scripts\\python.exe"
+}
