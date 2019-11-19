@@ -50,6 +50,7 @@ INSTALLED_APPS = [
 ]
 
 # https://dev-yakuza.github.io/ko/django/jwt/
+# view함수로 들어가기 전 인증 및 로그인 여부를 확인해주는 세팅
 REST_FRAMEWORK = {
     # 로그인 여부를 확인해주는 클래스
     'DEFAULT_PERMISSION_CLASSES': (
