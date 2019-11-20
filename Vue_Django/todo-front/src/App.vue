@@ -27,16 +27,27 @@
 import router from '@/router'
 export default {
   name: 'App',
-  data() {
-    return {
-      // jtw가 있으면 true 없으면 false
-      isLoggedIn: this.$session.has('jwt')
-    }  
+  // data() {
+  //   return {
+  //     // jtw가 있으면 true 없으면 false
+  //     isLoggedIn: this.$session.has('jwt')
+  //   }  
+  // },
+  computed: {
+    isLoggedIn() {
+      return this.$store.getters.isLoggedIn
+    }
   },
-
+  mounted() {
+    if (this.$session.has('jwt')) {
+      const token = this.$session.get('jwt')
+      this.$store.dispatch('login', token)
+    }
+  },
   methods: {
     logout() {
       this.$session.destroy()
+      this.$store.dispatch('logout')
       router.push('/login')
     }
   },

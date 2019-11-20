@@ -119,3 +119,54 @@ $ npm i jwt-decode
 
 
 
+
+
+# vuex
+
+-  Vue.js 애플리케이션에 대한 **상태 관리 패턴 + 라이브러리**  
+
+```html
+new Vue({
+  // 상태
+  data () {
+    return {
+      count: 0
+    }
+  },
+  // 뷰
+  template: `
+    <div>{{ count }}</div>
+  `,
+  // 액션
+  methods: {
+    increment () {
+      this.count++
+    }
+  }
+})
+```
+
+- **상태** 는 앱을 작동하는 원본 소스 입니다.
+- **뷰** 는 **상태의** 선언적 매핑입니다.
+- **액션** 은 **뷰** 에서 사용자 입력에 대해 반응적으로 상태를 바꾸는 방법입니다.
+
+![img](https://vuex.vuejs.org/flow.png)
+
+
+
+
+
+
+
+
+
+![vuex](https://vuex.vuejs.org/vuex.png)
+
+- **Mutations** 어떤 값으로 바꿀지 확인시켜주는 함수
+
+```bash
+$ vue ui
+```
+
+vuex 설치
+
