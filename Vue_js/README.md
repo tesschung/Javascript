@@ -226,23 +226,24 @@ module.exports = {
    
    </template>
    
+   ```
 <script>
    export default {
-       
+
    }
    </script>
-   
+
    <style>
-   
+
    </style>
-   
+
    ```
    
    
    
 9. settings.json 설정 (ctrl+shift+p) 후 추가
 
-```json
+​```json
 {
     "window.zoomLevel": 0, 
     "terminal.integrated.shell.windows": "C:\\Program Files\\Git\\bin\\bash.exe",
@@ -263,7 +264,7 @@ module.exports = {
         "editor.tabSize": 2
     },
 }
-```
+   ```
 
 ```bash
 # 10. vue-loader vue-template-complier 설치
@@ -319,3 +320,96 @@ $ npm install vue-style-loader css-loader -D
 
 
 13. 문제가 생기면 node_modules/ 를 삭제하고, bash에 npm i를 선언한다.
+
+
+
+
+
+
+
+
+
+## Youtube-browser 만들기
+
+- youtube에 검색 요청 후 데이터 받아오기
+
+### vue cli 설치
+
+```bash
+$ npm install -g @vue/cli
+# 설치 후
+$ vue --version
+@vue/cli 4.0.5
+```
+
+### vue cli 시작
+
+```bash
+$ vue create youtube-browser
+```
+
+```bash
+# 생성한 프로젝트인
+# youtube-browser/ 에서 진행해야 한다.
+# 시작
+$ npm run serve
+$ npm run build
+# ESLint 로 협업
+$ npm run lint
+```
+
+![components1](README.assets/components1-1573439744413.png)
+
+![components2](README.assets/components2-1573439744413.png)
+
+```json
+// package.json
+    "rules": {
+      "no-console": "off"
+    },
+
+// 추가 후 server를 닫고 다시 열기
+```
+
+
+
+App 함수를 만들어서
+
+searchbar한테 실행시키라고 함 
+
+### google API Dashboard
+
+http://console.developers.google.com/ 
+
+새프로젝트 생성
+
+ https://console.developers.google.com/home/dashboard?project=digital-splicer-258705&organizationId=0 
+
+![1573449166076](README.assets/1573449166076.png)
+
+[![img](https://lh3.googleusercontent.com/ZYqhr3UxuOX89sqPChlmM1PoTA-czlOscpOukIQH5bxud1sUworhIzai3KKLCyaEgYXkiM8eo2I=w32-h32)](https://console.developers.google.com/apis/api/youtube.googleapis.com/overview?organizationId=0&project=digital-splicer-258705)
+
+[ API 및 서비스 ](https://console.developers.google.com/apis?organizationId=0&project=digital-splicer-258705) YouTube Data API v3
+
+create credential
+
+![1573449439275](README.assets/1573449439275.png)
+
+```bash
+# API의 response를 받기위해 설치
+$ npm install axios
+```
+
+ https://developers.google.com/youtube/ 
+
+ 
+
+video list 를 받아 component화 시키기
+
+
+
+data-data-items-arrays 비디오에 대한 정보
+
+상위 -> 하위 props로 넘긴다.
+
+그래서 하위에 props로 등록해줘야 한다.
