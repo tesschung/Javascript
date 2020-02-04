@@ -411,5 +411,31 @@ video list 를 받아 component화 시키기
 data-data-items-arrays 비디오에 대한 정보
 
 상위 -> 하위 props로 넘긴다.
-
 그래서 하위에 props로 등록해줘야 한다.
+
+
+## 슬롯(Slots)
+부모 컴포넌트에서 자식 컴포넌트 사용하기
+
+
+아래와 같은 컴포넌트를 만들 수 있습니다.
+
+```
+<navigation-link url="/profile">
+  Your Profile
+</navigation-link>
+```
+
+그리고 <navigation-link> 템플릿을 아래와 같이 만들 수 있습니다.
+ 
+```
+<a
+  v-bind:href="url"
+  class="nav-link"
+>
+  <slot></slot>
+</a>
+ ```
+ 
+컴포넌트를 렌더링할 때 <slot></slot>이 “Your Profile”로 교체됩니다. 슬롯에는 HTML 같은 템플릿 코드를 포함시킬 수 있기 때문입니다.
+
