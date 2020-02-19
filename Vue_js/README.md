@@ -439,3 +439,29 @@ data-data-items-arrays 비디오에 대한 정보
  
 컴포넌트를 렌더링할 때 <slot></slot>이 “Your Profile”로 교체됩니다. 슬롯에는 HTML 같은 템플릿 코드를 포함시킬 수 있기 때문입니다.
 
+
+https://kr.vuejs.org/v2/guide/reactivity.html
+
+변경 감지 경고
+최신 JavaScript의 한계 (그리고 Object.observe의 포기)로 인해 Vue는 속성의 추가 제거를 감지할 수 없습니다. Vue는 인스턴스 초기화 중에 getter / setter 변환 프로세스를 수행하기 때문에 data 객체에 속성이 있어야 Vue가 이를 변환하고 응답할 수 있습니다.
+
+var vm = new Vue({
+  data: {
+    a: 1
+  }
+})
+// `vm.a` 은 이제 반응적입니다.
+
+vm.b = 2
+// `vm.b` 은 이제 반응적이지 않습니다.
+Vue는 이미 만들어진 인스턴스에 새로운 루트 수준의 반응 속성을 동적으로 추가하는 것을 허용하지 않습니다. 그러나 Vue.set(object, key, value) 메소드를 사용하여 중첩 된 객체에 반응성 속성을 추가 할 수 있습니다.
+
+Vue.set(vm.someObject, 'b', 2)
+Vm.$set 인스턴스 메소드를 사용할 수도 있습니다. 이 메소드는 전역 Vue.set 에 대한 별칭입니다.
+
+this.$set(this.someObject, 'b', 2)
+때로는 예를 들어 Object.assign() 또는 _.extend()를 사용하여 기존 객체에 많은 속성을 할당 할 수 있습니다. 그러나 객체에 추가 된 새 속성은 변경 내용을 트리거하지 않습니다. 이 경우 원본 객체와 mixin 객체의 속성을 사용하여 새 객체를 만듭니다.
+
+// `Object.assign(this.someObject, { a: 1, b: 2 })` 대신에
+this.someObject = Object.assign({}, this.someObject, { a: 1, b: 2 })
+리스트 렌더링 섹션에 앞서 알아보아야 할 배열 관련 참고사항이 있습니다.
